@@ -1,6 +1,7 @@
 #!perl6
 
 use v6;
+use Math::Topology::Knots::Lock;
 
 unit class Math::Topology::Knots::Segment;
 
@@ -12,7 +13,9 @@ has method unlock () {
   self;
 }
 
-has method lock ($lock) {
+has method lock (Math::Topology::Knots::Lock $lock) {
+  fail 'Attempt to lock an already locked Segment' if self.locked;
+
   $!lock = $lock;
   
   self;
